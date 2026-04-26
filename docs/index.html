@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maosu Client - Cross-platform Network Acceleration</title>
+  <meta name="description" content="Maosu Client 是一款稳定、高速、跨平台的网络加速客户端，支持 Windows、macOS、Linux、Android 和 Android TV。" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f7fafc;
+      color: #111827;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 22px 0;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #059669;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .nav-links a:hover {
+      color: #059669;
+    }
+
+    .hero {
+      padding: 86px 0 70px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.18), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(59, 130, 246, 0.16), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 1.08;
+      letter-spacing: -1.8px;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #4b5563;
+      margin-bottom: 12px;
+    }
+
+    .hero .en {
+      color: #6b7280;
+      font-size: 16px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      padding: 13px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: #059669;
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(5, 150, 105, 0.22);
+    }
+
+    .btn-primary:hover {
+      background: #047857;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: #111827;
+      border: 1px solid #e5e7eb;
+    }
+
+    .btn-secondary:hover {
+      border-color: #059669;
+      color: #059669;
+      transform: translateY(-2px);
+    }
+
+    .mockup {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 30px;
+      padding: 18px;
+      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12);
+    }
+
+    .mockup img {
+      width: 100%;
+      border-radius: 22px;
+      display: block;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 46px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      margin-bottom: 12px;
+      letter-spacing: -0.8px;
+    }
+
+    .section-title p {
+      color: #6b7280;
+      font-size: 16px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: #ecfdf5;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #6b7280;
+      font-size: 15px;
+    }
+
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .platform {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 22px;
+      text-align: center;
+      font-weight: 700;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+    }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .screenshots img {
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+      background: #fff;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+      border-radius: 34px;
+      padding: 58px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(5, 150, 105, 0.28);
+    }
+
+    .cta h2 {
+      font-size: 38px;
+      margin-bottom: 14px;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 28px;
+    }
+
+    .cta .btn {
+      background: #fff;
+      color: #047857;
+      display: inline-block;
+    }
+
+    footer {
+      padding: 36px 0;
+      color: #6b7280;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .features,
+      .screenshots {
+        grid-template-columns: 1fr;
+      }
+
+      .platforms {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .cta {
+        padding: 42px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">Maosu</div>
+    <nav class="nav-links">
+      <a href="#features">功能 Features</a>
+      <a href="#platforms">平台 Platforms</a>
+      <a href="#screenshots">界面 Screenshots</a>
+      <a href="#download">下载 Download</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">🚀 Stable · Fast · Cross-platform</div>
+        <h1>稳定、高速、全平台的网络加速客户端</h1>
+        <p>Maosu Client 为多设备用户打造，提供智能加速、多线路优化、实时监控与统一账户体验。</p>
+        <p class="en">Maosu Client is designed for stable, fast and seamless network optimization across desktop, mobile and TV platforms.</p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#download">立即下载 Download</a>
+          <a class="btn btn-secondary" href="#features">查看功能 Learn More</a>
+        </div>
+      </div>
+
+      <div class="mockup">
+        <img src="./assets/screen-dashboard.png" alt="Maosu Dashboard" />
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>核心功能 | Core Features</h2>
+        <p>专业、简洁、稳定，为日常使用与多设备场景提供更流畅的连接体验。</p>
+      </div>
+
+      <div class="features">
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>智能加速 | Smart Acceleration</h3>
+          <p>自动选择更优线路，降低延迟，提升连接稳定性与响应速度。</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🌍</div>
+          <h3>多线路优化 | Multi-route</h3>
+          <p>支持多地区线路管理、动态切换与高可用连接体验。</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">📊</div>
+          <h3>实时监控 | Real-time Monitor</h3>
+          <p>清晰展示速度、流量、剩余额度与连接状态，使用情况一目了然。</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🔄</div>
+          <h3>自动更新 | Auto Updates</h3>
+          <p>远程配置自动同步，线路与服务信息无需手动维护。</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🧠</div>
+          <h3>多模式支持 | Flexible Modes</h3>
+          <p>支持智能模式、全局模式与高级模式，适配不同使用场景。</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎁</div>
+          <h3>邀请收益 | Referral System</h3>
+          <p>内置邀请推广与佣金统计体系，适合商业化运营。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="platforms">
+    <div class="container">
+      <div class="section-title">
+        <h2>全平台支持 | Supported Platforms</h2>
+        <p>一个账号，多端同步，覆盖电脑、手机与电视端。</p>
+      </div>
+
+      <div class="platforms">
+        <div class="platform">🖥 Windows</div>
+        <div class="platform">🍎 macOS</div>
+        <div class="platform">🐧 Linux</div>
+        <div class="platform">🤖 Android</div>
+        <div class="platform">📺 Android TV</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screenshots">
+    <div class="container">
+      <div class="section-title">
+        <h2>界面展示 | Screenshots</h2>
+        <p>简洁现代的产品界面，让连接、套餐、流量、线路状态更加直观。</p>
+      </div>
+
+      <div class="screenshots">
+        <img src="./assets/screen-dashboard.png" alt="Dashboard" />
+        <img src="./assets/screen-plans.png" alt="Plans" />
+        <img src="./assets/screen-nodes.png" alt="Nodes" />
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="container">
+      <div class="cta">
+        <h2>开始体验 Maosu Client</h2>
+        <p>Download Maosu Client and enjoy a stable, fast and cross-platform network experience.</p>
+        <a class="btn" href="https://github.com/yourname/your-repo/releases">前往下载 Download Now</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Maosu Client. All rights reserved.</p>
+    <p>本项目仅用于网络优化与技术研究，请遵守当地法律法规。</p>
+  </div>
+</footer>
+
+</body>
+</html>
